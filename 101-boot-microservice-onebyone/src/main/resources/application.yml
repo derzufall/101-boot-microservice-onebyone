@@ -1,0 +1,54 @@
+############################################
+#####   APPLICTION DEFAULT SETTINGS    #####
+##### OVERRIDE IN /config IF NECESSARY #####
+############################################
+server:
+  port: 8080
+  contextPath: /101companies
+  tomcat:
+    # Write access log to target/logs/access_log.YYYY-MM-DD.log
+    # See http://tomcat.apache.org/tomcat-7.0-doc/api/org/apache/catalina/valves/AccessLogValve.html
+    accessLogEnabled: true
+    accessLogPattern: '%h %l %u %t "%r" %s %b'
+    # devloper friendly logging
+    baseDir: 'target/logs/tomcat.${random.int}.${server.port}'
+    backgroundProcessorDelay: 1
+    
+#settings for boot-admin-panel, makes sense to have these defaults
+management.context-path: /management
+management.port: ${server.port}
+info.status: OK
+
+# Some further logging opportunities: (defaults make us happy for now)
+#(TRACE, DEBUG, INFO, WARN, ERROR, FATAL, OFF)
+#logging:
+#  file: target/logs/application_log
+#  config: config/logback-dev.xml
+#  level:
+#    ROOT: INFO
+#    org.apache.http: INFO
+#    org.apache.http.headers: INFO
+#    org.springframework.web: INFO
+#    org.hibernate: INFO
+
+
+spring:
+  datasource:
+    # file based h2 embedded server
+    url: jdbc:h2:file:~/101companies_dbx
+  jpa:
+    show-sql: true
+    format-sql: true
+    hibernate:
+      #never change this if you dont use your own DB!
+      #ddl-auto: none
+      # but in this case this MS has its own datarealm, the way it should be
+      ddl-auto: create-drop
+  mvc:
+    favicon:
+        enabled: false
+
+info:
+  app:
+    name: ${project.name}
+    version: ${project.version}
