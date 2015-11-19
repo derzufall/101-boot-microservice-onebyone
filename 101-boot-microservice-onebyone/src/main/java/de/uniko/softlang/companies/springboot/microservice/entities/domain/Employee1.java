@@ -7,6 +7,7 @@ package de.uniko.softlang.companies.springboot.microservice.entities.domain;
 
 import de.uniko.softlang.companies.springboot.microservice.absgeneric.AbstractEntity;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -29,7 +30,7 @@ import javax.validation.constraints.Size;
         = @UniqueConstraint(columnNames = {"name", "company_id"})
 )
 @Entity
-public class Employee1 extends AbstractEntity implements Serializable {
+public class Employee1 extends AbstractEntity implements Serializable, HasEmployee1List {
 
     @NotNull
     @Column(nullable = false)
@@ -106,5 +107,12 @@ public class Employee1 extends AbstractEntity implements Serializable {
 
         //manages.toString();
         this.manages = manages;
+    }
+
+    @Override
+    public List<Employee1> getEmployees() {
+        List<Employee1> x = new ArrayList();
+        x.add(this);
+        return x;
     }
 }

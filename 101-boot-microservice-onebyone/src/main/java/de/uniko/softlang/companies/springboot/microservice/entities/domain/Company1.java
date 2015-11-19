@@ -22,7 +22,7 @@ import javax.validation.constraints.Size;
  */
 
 @Entity
-public class Company1 extends AbstractEntity implements Serializable {
+public class Company1 extends AbstractEntity implements Serializable, HasEmployee1List {
     
     @Size(min = 1, max = 255)
     @Basic(optional = false)

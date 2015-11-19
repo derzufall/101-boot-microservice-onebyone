@@ -27,7 +27,7 @@ import org.springframework.stereotype.Component;
  * @author nbreest
  */
 @Entity
-public class Department1 extends AbstractEntity implements Serializable {
+public class Department1 extends AbstractEntity implements Serializable, HasEmployee1List {
     
     @NotNull
     @Size(min = 1, max = 255)
