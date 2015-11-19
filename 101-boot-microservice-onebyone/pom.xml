@@ -51,11 +51,11 @@
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
         
-        <!-- spring-data repos exposed as REST repositories 
+        <!-- spring-data repos exposed as REST repositories -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-rest</artifactId>
-        </dependency> -->
+        </dependency> 
         
         <!-- HAL and JSON 
         <dependency>
