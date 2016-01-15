@@ -59,6 +59,7 @@ public class Company1 extends AbstractEntity implements Serializable, HasEmploye
         this.departments = departments;
     }
 
+    @Override
     public List<Employee1> getEmployees() {
         return employees;
     }
@@ -79,5 +80,12 @@ public class Company1 extends AbstractEntity implements Serializable, HasEmploye
 
         this.employees = employees;
     }
+
+    @Override
+    public String toString() {
+        return "Company1{" + "name=" + name + '}';
+    }
+    
+    
  
 }

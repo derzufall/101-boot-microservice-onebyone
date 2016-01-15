@@ -16,6 +16,8 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
@@ -28,6 +30,17 @@ import org.springframework.stereotype.Component;
  */
 @Entity
 public class Department1 extends AbstractEntity implements Serializable, HasEmployee1List {
+    @OneToMany
+    private List<SalaryHistory1> salaryHistoryList;
+
+    public List<SalaryHistory1> getSalaryHistoryList() {
+        return salaryHistoryList;
+    }
+
+    public void setSalaryHistoryList(List<SalaryHistory1> salaryHistoryList) {
+        this.salaryHistoryList = salaryHistoryList;
+    }
+    
     
     @NotNull
     @Size(min = 1, max = 255)
@@ -42,7 +55,7 @@ public class Department1 extends AbstractEntity implements Serializable, HasEmpl
         this.name = name;
     }
     
-    
+    @NotNull
     @Basic(optional = false)
     @ManyToOne
     private Company1 company;
@@ -71,6 +84,7 @@ public class Department1 extends AbstractEntity implements Serializable, HasEmpl
     @OneToMany(mappedBy = "department", orphanRemoval = true, cascade = CascadeType.ALL)
     private List<Employee1> employees;    
 
+    @Override
     public List<Employee1> getEmployees() {
         return employees;
     }

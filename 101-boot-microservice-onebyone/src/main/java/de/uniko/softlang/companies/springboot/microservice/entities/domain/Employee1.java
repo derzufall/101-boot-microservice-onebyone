@@ -5,19 +5,25 @@
  */
 package de.uniko.softlang.companies.springboot.microservice.entities.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import de.uniko.softlang.companies.springboot.microservice.absgeneric.AbstractEntity;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import org.springframework.data.rest.core.annotation.RestResource;
 
 /**
  *
@@ -31,13 +37,15 @@ import javax.validation.constraints.Size;
 )
 @Entity
 public class Employee1 extends AbstractEntity implements Serializable, HasEmployee1List {
-
+    
     @NotNull
     @Column(nullable = false)
     @Size(min = 1, max = 255)
     private String name;
-
     
+    @NotNull
+    @Column(nullable = false)
+    private long salary;
     
     @NotNull
     @ManyToOne(optional = false)
@@ -46,12 +54,9 @@ public class Employee1 extends AbstractEntity implements Serializable, HasEmploy
     @NotNull
     @ManyToOne(optional = false)
     private Department1 department;
-
-    
-    
+   
     @OneToMany(mappedBy = "manager")
     private List<Department1> manages;
-
     
     
     public String getName() {
@@ -60,6 +65,14 @@ public class Employee1 extends AbstractEntity implements Serializable, HasEmploy
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public long getSalary() {
+        return salary;
+    }
+    
+    public void setSalary(long salary) {
+        this.salary = salary;
     }
 
     public Company1 getCompany() {
@@ -110,9 +123,12 @@ public class Employee1 extends AbstractEntity implements Serializable, HasEmploy
     }
 
     @Override
+    @RestResource(exported = false)
+    @JsonIgnore
     public List<Employee1> getEmployees() {
         List<Employee1> x = new ArrayList();
         x.add(this);
         return x;
     }
+    
 }
