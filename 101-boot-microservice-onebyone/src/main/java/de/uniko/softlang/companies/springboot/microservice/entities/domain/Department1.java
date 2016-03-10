@@ -24,14 +24,45 @@ import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import org.springframework.stereotype.Component;
+
 /**
  *
  * @author nbreest
  */
 @Entity
 public class Department1 extends AbstractEntity implements Serializable, HasEmployee1List {
+
     @OneToMany
     private List<SalaryHistory1> salaryHistoryList;
+
+    @NotNull
+    @Size(min = 1, max = 255)
+    @Column(unique = true, nullable = false)
+    private String name;
+
+    @NotNull
+    @Basic(optional = false)
+    @ManyToOne
+    private Company1 company;
+
+    @ManyToOne
+    private Employee1 manager;
+
+    @Basic(optional = true)
+    @OneToMany(mappedBy = "department", cascade = CascadeType.ALL)
+    private List<Employee1> employees;
+
+    @ManyToOne
+    private Department1 parentDepartment;
+
+    @Basic(optional = true)
+    @OneToMany(mappedBy = "parentDepartment", orphanRemoval = true, cascade = CascadeType.ALL)
+    private List<Department1> subDepartments;
+    
+    
+    
+    
+    
 
     public List<SalaryHistory1> getSalaryHistoryList() {
         return salaryHistoryList;
@@ -40,13 +71,7 @@ public class Department1 extends AbstractEntity implements Serializable, HasEmpl
     public void setSalaryHistoryList(List<SalaryHistory1> salaryHistoryList) {
         this.salaryHistoryList = salaryHistoryList;
     }
-    
-    
-    @NotNull
-    @Size(min = 1, max = 255)
-    @Column(unique=true, nullable = false)
-    private String name;
-    
+
     public String getName() {
         return name;
     }
@@ -54,12 +79,7 @@ public class Department1 extends AbstractEntity implements Serializable, HasEmpl
     public void setName(String name) {
         this.name = name;
     }
-    
-    @NotNull
-    @Basic(optional = false)
-    @ManyToOne
-    private Company1 company;
-    
+
     public Company1 getCompany() {
         return company;
     }
@@ -67,22 +87,14 @@ public class Department1 extends AbstractEntity implements Serializable, HasEmpl
     public void setCompany(Company1 company) {
         this.company = company;
     }
-    
-    
-    @ManyToOne
-    private Employee1 manager;
-    
+
     public Employee1 getManager() {
         return manager;
     }
+
     public void setManager(Employee1 manager) {
         this.manager = manager;
     }
-
-    
-    @Basic(optional = true)
-    @OneToMany(mappedBy = "department", orphanRemoval = true, cascade = CascadeType.ALL)
-    private List<Employee1> employees;    
 
     @Override
     public List<Employee1> getEmployees() {
@@ -105,16 +117,7 @@ public class Department1 extends AbstractEntity implements Serializable, HasEmpl
 
         this.employees = employees;
     }
-    
-    
-    @ManyToOne
-    private Department1 parentDepartment;
-    
-    @Basic(optional = true)
-    @OneToMany(mappedBy = "parentDepartment", orphanRemoval = true,cascade = CascadeType.ALL)
-    private List<Department1> subDepartments;
-    
-    
+
     public Department1 getParentDepartment() {
         return parentDepartment;
     }
@@ -122,14 +125,14 @@ public class Department1 extends AbstractEntity implements Serializable, HasEmpl
     public void setParentDepartment(Department1 parentDepartment) {
         this.parentDepartment = parentDepartment;
     }
-    
+
     public List<Department1> getSubDepartments() {
         return subDepartments;
     }
 
     public void setSubDepartments(List<Department1> subDepartments) {
         // TODO: Modifying things here might cause problems with orphans :-(
-        
+
         /*// decouple all subdepartments of this department.
         this.subDepartments.stream()
                 .forEach((subdep) -> {
@@ -141,10 +144,8 @@ public class Department1 extends AbstractEntity implements Serializable, HasEmpl
                 .forEach((subdep) -> {
                     subdep.setParentDepartment(this);
                 });
-        */
+         */
         this.subDepartments = subDepartments;
     }
 
-    
-    
 }

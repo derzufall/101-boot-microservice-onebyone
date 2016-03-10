@@ -31,7 +31,7 @@ public class Company1 extends AbstractEntity implements Serializable, HasEmploye
     private String name;
       
     // sadly with SpringDataRest you cannot interact so well with the owned side of an assoc. (yet)
-    @OneToMany(mappedBy = "company", orphanRemoval = true,cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL)
     private List<Department1> departments;
     
     // sadly with SpringDataRest you cannot interact so well with the owned side of an assoc. (yet)
