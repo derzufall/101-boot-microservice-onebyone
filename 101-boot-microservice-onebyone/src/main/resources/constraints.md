@@ -1,8 +1,55 @@
+
+* IF E.D <> null    THEN    (E.C == E.D.C) == TRUE    ELSE    E.D = NULL
+
+
+* S_HIST            may NOT be DELETED
+* TOTAVG            may NOT be DELETED
+* TOTAVG_UNIT       may NOT be DELETED
+* CUT               may NOT be DELETED
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------
+
 - List of Constraints:
 
 *D*
 - The C of a D connot be changed
-- 
+-
 
 
 *E*
@@ -15,7 +62,7 @@
 - ON CHANGE: If S-amount changes, a new S will be created
 
 *T*
-- 
+-
 
 
 
@@ -23,4 +70,8 @@
 - has: E, amount, Date
 - Amount cannot be changed
 - E cannot be changed
-- 
+-
+
+
+
+

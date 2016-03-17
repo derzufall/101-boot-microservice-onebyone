@@ -12,6 +12,6 @@ import java.util.List;
  * @author nbreest
  */
 public interface HasEmployee1List {
-    
-    public List<Employee1> getEmployees();
+
+    public List<Employee> getEmployees();
 }
