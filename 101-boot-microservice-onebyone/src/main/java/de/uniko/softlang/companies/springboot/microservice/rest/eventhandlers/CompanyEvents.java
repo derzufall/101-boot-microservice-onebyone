@@ -5,6 +5,7 @@
  */
 package de.uniko.softlang.companies.springboot.microservice.rest.eventhandlers;
 
+import de.uniko.softlang.companies.springboot.microservice.business.suityourself.CompanyChangePropagator;
 import de.uniko.softlang.companies.springboot.microservice.entities.domain.Company;
 import de.uniko.softlang.companies.springboot.microservice.entities.domain.Department;
 import de.uniko.softlang.companies.springboot.microservice.entities.domain.Employee;
@@ -30,40 +31,38 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @Component // so this is instanciated by the container
 @ControllerAdvice // so spring knows exceptionhandling is done in here
 @RepositoryEventHandler // eventhandling is done here too, can be narrowed by (Object.class)
-public class GenericEventhandler {
+public class CompanyEvents {
 
-    @Inject
-    EmployeeRepository employeeRepo;
-    @Inject
-    SalaryRepository salaryRepo;
+    @HandleBeforeCreate
+    public void beforeCreate(Company entity) {
+        // Before create:
 
-    @HandleAfterCreate
-    public void handleAfterCreate(Employee entity) {
-        //SalaryHist newSalary = new SalaryHist(entity, entity.getSalary());
-        //salaryRepo.save(newSalary);
     }
 
-    public void handleAfterCreate(SalaryHist entity) {
-        System.out.println("SALARY CREATED");
+    @HandleAfterCreate
+    public void afterCreate(Company entity) {
+        // After create:
+        //  - make new totavg of the company
+        CompanyChangePropagator.newCompany(entity);
     }
 
     @HandleBeforeSave
-    public void handleBeforeSave(Employee entity) {
+    public void beforeSave(Company entity) {
 
     }
 
-    @HandleBeforeDelete
-    public void handleBeforeDelete(Employee entity) {
-
+    @HandleAfterSave
+    public void afterSave(Company entity) {
+        CompanyChangePropagator.saveCompany(entity);
     }
 
     @HandleBeforeDelete
-    public void handleBeforeDelete(Department entity) {
+    public void beforeDelete(Company entity) {
 
     }
 
-    @HandleBeforeDelete
-    public void handleBeforeDelete(Company entity) {
+    @HandleAfterDelete
+    public void afterDelete(Company entity) {
 
     }
 

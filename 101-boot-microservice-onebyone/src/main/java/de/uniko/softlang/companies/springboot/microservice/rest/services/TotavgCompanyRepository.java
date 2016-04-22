@@ -5,7 +5,7 @@
  */
 package de.uniko.softlang.companies.springboot.microservice.rest.services;
 
-import de.uniko.softlang.companies.springboot.microservice.entities.domain.Employee1;
+import de.uniko.softlang.companies.springboot.microservice.entities.actions.TotavgCompany;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
@@ -13,7 +13,7 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
  *
  * @author nbreest
  */
-@RepositoryRestResource(collectionResourceRel = "employees", path = "employees")
-public interface Employee1Repository extends JpaRepository<Employee1, Long> {
-    
+@RepositoryRestResource(collectionResourceRel = "totals", path = "totals")
+public interface TotavgCompanyRepository extends JpaRepository<TotavgCompany, Long> {
+
 }

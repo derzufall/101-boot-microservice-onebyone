@@ -5,7 +5,7 @@
  */
 package de.uniko.softlang.companies.springboot.microservice.rest.services;
 
-import de.uniko.softlang.companies.springboot.microservice.entities.domain.Company1;
+import de.uniko.softlang.companies.springboot.microservice.entities.domain.Company;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
@@ -14,6 +14,6 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
  * @author nbreest
  */
 @RepositoryRestResource(collectionResourceRel = "companies", path = "companies")
-public interface Company1Repository extends JpaRepository<Company1, Long> {
-    
+public interface CompanyRepository extends JpaRepository<Company, Long> {
+
 }

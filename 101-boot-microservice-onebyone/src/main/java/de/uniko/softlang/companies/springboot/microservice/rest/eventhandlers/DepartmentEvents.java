@@ -5,7 +5,8 @@
  */
 package de.uniko.softlang.companies.springboot.microservice.rest.eventhandlers;
 
-import de.uniko.softlang.companies.springboot.microservice.entities.domain.Company;
+import de.uniko.softlang.companies.springboot.microservice.business.suityourself.DepartmentChangePropagator;
+import de.uniko.softlang.companies.springboot.microservice.entities.domain.Department;
 import de.uniko.softlang.companies.springboot.microservice.entities.domain.Department;
 import de.uniko.softlang.companies.springboot.microservice.entities.domain.Employee;
 import de.uniko.softlang.companies.springboot.microservice.entities.domain.SalaryHist;
@@ -30,59 +31,38 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @Component // so this is instanciated by the container
 @ControllerAdvice // so spring knows exceptionhandling is done in here
 @RepositoryEventHandler // eventhandling is done here too, can be narrowed by (Object.class)
-public class GenericEventhandler {
+public class DepartmentEvents {
 
-    @Inject
-    EmployeeRepository employeeRepo;
-    @Inject
-    SalaryRepository salaryRepo;
+    @HandleBeforeCreate
+    public void beforeCreate(Department entity) {
+        // Before create:
 
-    @HandleAfterCreate
-    public void handleAfterCreate(Employee entity) {
-        //SalaryHist newSalary = new SalaryHist(entity, entity.getSalary());
-        //salaryRepo.save(newSalary);
     }
 
-    public void handleAfterCreate(SalaryHist entity) {
-        System.out.println("SALARY CREATED");
+    @HandleAfterCreate
+    public void afterCreate(Department entity) {
+        // After create:
+        //  - make new totavg of the department
+        DepartmentChangePropagator.newDepartment(entity);
     }
 
     @HandleBeforeSave
-    public void handleBeforeSave(Employee entity) {
+    public void beforeSave(Department entity) {
+
+    }
+
+    @HandleAfterSave
+    public void afterSave(Department entity) {
 
     }
 
     @HandleBeforeDelete
-    public void handleBeforeDelete(Employee entity) {
+    public void beforeDelete(Department entity) {
 
     }
 
-    @HandleBeforeDelete
-    public void handleBeforeDelete(Department entity) {
+    @HandleAfterDelete
+    public void afterDelete(Department entity) {
 
     }
-
-    @HandleBeforeDelete
-    public void handleBeforeDelete(Company entity) {
-
-    }
-
-    /*
-    @ExceptionHandler(DateTimeException.class) // handle this exception
-    @ResponseStatus(HttpStatus.BAD_REQUEST) // send this response status
-    @ResponseBody // this method returns a custom response body
-    GenericEntity handleBadDate(final DateTimeException e) {
-        return this.e;
-    }*//*
-    @ExceptionHandler(Exception.class) // handle this exception
-    @ResponseStatus(HttpStatus.BAD_REQUEST) // send this response status
-    @ResponseBody // this method returns a custom response body
-    Exception handleAnyUncaughtException(final Exception e) {
-        return e;
-    }
-    /*
-    @ExceptionHandler(Exception.class) // handle this exception
-    @ResponseStatus(HttpStatus.BAD_REQUEST) // send this response status
-    void handleAnyUncaughtExceptionSilently(final Exception e) {}
-     */
 }
